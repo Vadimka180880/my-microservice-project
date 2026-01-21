@@ -24,7 +24,6 @@ Creates ECR repository with image scan on push and repository policy.
 
 ## Commands
 Initialize:
-
 terraform init
 
 Plan:
