@@ -42,12 +42,10 @@ module "eks" {
 
   cluster_name    = var.eks_cluster_name
   cluster_version = var.eks_cluster_version
-
-  # важливо: беремо підмережі з VPC-модуля
   subnet_ids = module.vpc.private_subnet_ids
 
   node_instance_types = var.eks_node_instance_types
-  node_desired_size   = 2
-  node_min_size       = 2
+  node_desired_size   = 0
+  node_min_size       = 0
   node_max_size       = 6
 }
