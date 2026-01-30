@@ -1,0 +1,12 @@
+# Local/temp files
+metrics-server-patch.yaml
+metrics-server-args-patch.json
+ebs-csi-trust.json
+
+# Python venv
+**/venv/
+
+# Terraform
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.*
