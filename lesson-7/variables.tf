@@ -31,7 +31,7 @@ variable "eks_cluster_name" {
 
 variable "eks_cluster_version" {
   type    = string
-  default = "1.34"
+  default = "1.29"
 }
 
 variable "eks_node_instance_types" {
