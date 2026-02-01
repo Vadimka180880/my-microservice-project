@@ -49,6 +49,7 @@ module "eks" {
   node_max_size       = var.eks_node_max_size
 
   enable_ebs_csi_addon = var.enable_ebs_csi_addon
+  ebs_csi_role_arn      = var.ebs_csi_role_arn
 }
 
 module "jenkins" {
@@ -60,7 +61,6 @@ module "jenkins" {
   chart_version  = var.jenkins_chart_version
   admin_user     = var.jenkins_admin_user
   admin_password = var.jenkins_admin_password
-
 }
 
 module "argo_cd" {
@@ -71,9 +71,8 @@ module "argo_cd" {
   namespace     = var.argo_cd_namespace
   chart_version = var.argo_cd_chart_version
 
-  repo_url         = var.argo_cd_repo_url
-  app_path         = var.argo_cd_app_path
-  app_revision     = var.argo_cd_app_revision
-  destination_ns   = var.argo_cd_destination_ns
-
+  repo_url       = var.argo_cd_repo_url
+  app_path       = var.argo_cd_app_path
+  app_revision   = var.argo_cd_app_revision
+  destination_ns = var.argo_cd_destination_ns
 }

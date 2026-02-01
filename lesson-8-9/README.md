@@ -4,11 +4,11 @@
 1. `terraform init -reconfigure`
 2. `terraform apply`
 
-## Jenkins pipeline
+## Jenkins pipeline     
 - Jenkins встановлюється через Helm.
 - Pipeline збирає образ, пушить у ECR, оновлює values.yaml в GitOps репозиторії.
-
-## Argo CD
+        
+## Argo CD  
 - Argo CD встановлюється через Helm.
 - Argo Application слідкує за GitOps репозиторієм і синхронізує застосунок.
 

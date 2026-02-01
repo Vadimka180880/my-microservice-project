@@ -54,9 +54,24 @@ variable "eks_node_max_size" {
   default = 6
 }
 
+variable "enable_jenkins" {
+  type    = bool
+  default = false
+}
+
+variable "enable_argo_cd" {
+  type    = bool
+  default = false
+}
+
 variable "enable_ebs_csi_addon" {
   type    = bool
   default = true
+}
+
+variable "ebs_csi_role_arn" {
+  type    = string
+  default = ""
 }
 
 variable "jenkins_namespace" {

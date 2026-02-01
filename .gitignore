@@ -2,6 +2,7 @@
 metrics-server-patch.yaml
 metrics-server-args-patch.json
 ebs-csi-trust.json
+ebs-csi-trust-8-9.json
 
 # Python venv
 **/venv/

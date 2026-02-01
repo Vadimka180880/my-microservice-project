@@ -7,10 +7,10 @@ spec:
     - ReadWriteOnce
   storageClassName: gp2
   resources:
-    requests:
+    requests: 
       storage: 5Gi
 
----
+---    
 apiVersion: v1
 kind: Secret
 metadata:

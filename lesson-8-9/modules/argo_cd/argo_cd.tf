@@ -23,30 +23,28 @@ resource "helm_release" "argo_apps" {
 
   values = [file("${path.module}/charts/argo-apps/values.yaml")]
 
-  set {
-    name  = "repositories[0].url"
-    value = var.repo_url
-  }
-
-  set {
-    name  = "applications[0].repoURL"
-    value = var.repo_url
-  }
-
-  set {
-    name  = "applications[0].path"
-    value = var.app_path
-  }
-
-  set {
-    name  = "applications[0].targetRevision"
-    value = var.app_revision
-  }
-
-  set {
-    name  = "applications[0].destination.namespace"
-    value = var.destination_ns
-  }
+  set = [
+    {
+      name  = "repositories[0].url"
+      value = var.repo_url
+    },
+    {
+      name  = "applications[0].repoURL"
+      value = var.repo_url
+    },
+    {
+      name  = "applications[0].path"
+      value = var.app_path
+    },
+    {
+      name  = "applications[0].targetRevision"
+      value = var.app_revision
+    },
+    {
+      name  = "applications[0].destination.namespace"
+      value = var.destination_ns
+    }
+  ]
 
   depends_on = [helm_release.argo_cd]
 }

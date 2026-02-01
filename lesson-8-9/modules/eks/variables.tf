@@ -40,3 +40,8 @@ variable "enable_ebs_csi_addon" {
   type    = bool
   default = true
 }
+
+variable "ebs_csi_role_arn" {
+  type    = string
+  default = ""
+}

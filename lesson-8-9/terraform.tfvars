@@ -19,3 +19,5 @@ jenkins_admin_password = "change-me"
 
 argo_cd_repo_url = "https://github.com/Vadimka180880/my-microservice-project.git"
 argo_cd_app_path = "lesson-7/charts/django-app"
+
+ebs_csi_role_arn = "arn:aws:iam::804219314385:role/AmazonEKS_EBS_CSI_DriverRole_8_9"

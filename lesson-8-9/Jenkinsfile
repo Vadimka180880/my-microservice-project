@@ -19,27 +19,29 @@ spec:
     command:
     - cat
     tty: true
-  volumes:
+  volumes: 
   - name: docker-config
     secret:
-      secretName: ecr-docker-config
+      secretName: ecr-docker-config 
 '''
     }
-  }
-
+  } 
+    
   environment {
     AWS_REGION = "us-west-2"
     ECR_REGISTRY = "804219314385.dkr.ecr.us-west-2.amazonaws.com"
     IMAGE_NAME = "lesson-8-9-ecr"
-    GITOPS_REPO = "https://github.com/your-org/your-gitops-repo.git"
-    VALUES_PATH = "charts/django-app/values.yaml"
+    GITOPS_REPO = "https://github.com/Vadimka180880/my-microservice-project.git"
+    VALUES_PATH = "lesson-7/charts/django-app/values.yaml"
+    DOCKER_CONTEXT = "docker-django"
+    DOCKERFILE = "docker-django/Dockerfile"
   }
 
   stages {
     stage('Build and Push') {
       steps {
         container('kaniko') {
-          sh '/kaniko/executor --context $WORKSPACE/docker-django --dockerfile $WORKSPACE/docker-django/Dockerfile --destination $ECR_REGISTRY/$IMAGE_NAME:$BUILD_NUMBER'
+          sh '/kaniko/executor --context $WORKSPACE/$DOCKER_CONTEXT --dockerfile $WORKSPACE/$DOCKERFILE --destination $ECR_REGISTRY/$IMAGE_NAME:$BUILD_NUMBER'
         }
       }
     }
