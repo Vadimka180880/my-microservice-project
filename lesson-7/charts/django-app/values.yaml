@@ -1,5 +1,5 @@
 image:
-  repository: 804219314385.dkr.ecr.us-west-2.amazonaws.com/lesson-7-ecr
+  repository: 804219314385.dkr.ecr.us-west-2.amazonaws.com/lesson-8-9-ecr
   tag: 12
   pullPolicy: IfNotPresent
 
