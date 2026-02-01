@@ -11,7 +11,7 @@ spec:
     command:
     - /busybox/sh
     - -c
-    - cat
+    - sleep 365d
     tty: true
     volumeMounts:
     - name: docker-config
