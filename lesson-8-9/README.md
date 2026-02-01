@@ -14,4 +14,9 @@
 
 ## Що потрібно заповнити
 - `terraform.tfvars`: repo URL, Jenkins креденшели, bucket, ECR repo.
-- `Jenkinsfile`: назви репозиторіїв і креденшелів.
+- `Jenkinsfile`: шлях до Dockerfile і IDs креденшелів.
+
+## Налаштовані значення
+- Dockerfile: docker-django/Dockerfile
+- Git credentials ID: git-cred
+- AWS credentials ID: aws-cred
