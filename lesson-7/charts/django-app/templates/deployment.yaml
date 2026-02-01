@@ -23,5 +23,7 @@ spec:
           resources:
 {{ toYaml .Values.resources | indent 12 }}
           envFrom:
+            - secretRef:
+                name: django-app-secret
             - configMapRef:
                 name: django-app

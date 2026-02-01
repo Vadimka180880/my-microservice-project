@@ -20,11 +20,14 @@ configMap:
   data:
     DJANGO_DEBUG: "False"
     DJANGO_ALLOWED_HOSTS: "*"
+    DB_HOST: "postgres"
+    DB_PORT: "5432"
+
+secret:
+  data:
     POSTGRES_DB: "django_db"
     POSTGRES_USER: "django_user"
     POSTGRES_PASSWORD: "django_pass"
-    DB_HOST: "postgres"
-    DB_PORT: "5432"
 
 resources:
   requests:

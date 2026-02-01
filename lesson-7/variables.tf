@@ -3,11 +3,9 @@ variable "aws_region" {
   default = "us-west-2"
 }
 
-# backend names
 variable "tf_state_bucket_name" { type = string }
 variable "tf_lock_table_name"   { type = string }
 
-# VPC
 variable "vpc_name" { type = string }
 variable "vpc_cidr" { type = string }
 
@@ -23,19 +21,17 @@ variable "azs" {
   type = list(string)
 }
 
-# ECR
 variable "ecr_repository_name" {
   type = string
 }
 
-# EKS
 variable "eks_cluster_name" {
   type = string
 }
 
 variable "eks_cluster_version" {
   type    = string
-  default = "1.34"
+  default = "1.29"
 }
 
 variable "eks_node_instance_types" {
