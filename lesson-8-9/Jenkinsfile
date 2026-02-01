@@ -46,6 +46,7 @@ spec:
     DOCKERFILE = "docker-django/Dockerfile"
     GIT_CRED_ID = "git-cred"
     AWS_CRED_ID = "aws-cred"
+    GITOPS_BRANCH = "lesson-8-9"
   }
 
   stages {
@@ -85,12 +86,12 @@ EOF
             sh '''
               git config --global user.email "ci@example.com"
               git config --global user.name "ci"
-              git clone https://$GIT_USERNAME:$GIT_PASSWORD@github.com/Vadimka180880/my-microservice-project.git gitops
+              git clone --branch $GITOPS_BRANCH https://$GIT_USERNAME:$GIT_PASSWORD@github.com/Vadimka180880/my-microservice-project.git gitops
               cd gitops
               sed -i "s/tag: .*/tag: $BUILD_NUMBER/" $VALUES_PATH
               git add $VALUES_PATH
               git commit -m "Update image tag to $BUILD_NUMBER" || true
-              git push origin main
+              git push origin $GITOPS_BRANCH
             '''
           }
         }
