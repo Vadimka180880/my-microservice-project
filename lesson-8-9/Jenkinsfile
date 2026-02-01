@@ -1,0 +1,64 @@
+pipeline {
+  agent {
+    kubernetes {
+      yaml '''
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:latest
+    command:
+    - cat
+    tty: true
+    volumeMounts:
+    - name: docker-config
+      mountPath: /kaniko/.docker
+  - name: git
+    image: alpine/git:2.43.0
+    command:
+    - cat
+    tty: true
+  volumes:
+  - name: docker-config
+    secret:
+      secretName: ecr-docker-config
+'''
+    }
+  }
+
+  environment {
+    AWS_REGION = "us-west-2"
+    ECR_REGISTRY = "804219314385.dkr.ecr.us-west-2.amazonaws.com"
+    IMAGE_NAME = "lesson-8-9-ecr"
+    GITOPS_REPO = "https://github.com/your-org/your-gitops-repo.git"
+    VALUES_PATH = "charts/django-app/values.yaml"
+  }
+
+  stages {
+    stage('Build and Push') {
+      steps {
+        container('kaniko') {
+          sh '/kaniko/executor --context $WORKSPACE/docker-django --dockerfile $WORKSPACE/docker-django/Dockerfile --destination $ECR_REGISTRY/$IMAGE_NAME:$BUILD_NUMBER'
+        }
+      }
+    }
+
+    stage('Update Helm values') {
+      steps {
+        container('git') {
+          sh '''
+            git config --global user.email "ci@example.com"
+            git config --global user.name "ci"
+            git clone $GITOPS_REPO gitops
+            cd gitops
+            sed -i "s/tag: .*/tag: $BUILD_NUMBER/" $VALUES_PATH
+            git add $VALUES_PATH
+            git commit -m "Update image tag to $BUILD_NUMBER"
+            git push origin main
+          '''
+        }
+      }
+    }
+  }
+}

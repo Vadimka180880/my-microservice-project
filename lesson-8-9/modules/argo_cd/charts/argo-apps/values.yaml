@@ -1,0 +1,18 @@
+repositories:
+  - name: main
+    url: https://github.com/your-org/your-gitops-repo.git
+    type: git
+
+applications:
+  - name: django-app
+    project: default
+    repoURL: https://github.com/your-org/your-gitops-repo.git
+    path: charts/django-app
+    targetRevision: main
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: default
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true

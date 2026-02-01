@@ -1,0 +1,9 @@
+controller:
+  serviceType: LoadBalancer
+  installPlugins:
+    - kubernetes
+    - workflow-aggregator
+    - git
+    - configuration-as-code
+agent:
+  enabled: true
