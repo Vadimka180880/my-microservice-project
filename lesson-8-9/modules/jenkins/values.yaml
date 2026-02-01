@@ -1,7 +1,7 @@
 controller:
   image:
     tag: "2.479.1-lts-jdk17"
-  serviceType: LoadBalancer
+  serviceType: ClusterIP
   installPlugins:
     - kubernetes
     - workflow-aggregator

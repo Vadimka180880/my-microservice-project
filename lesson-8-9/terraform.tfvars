@@ -11,6 +11,11 @@ private_subnet_cidrs = ["10.0.4.0/24","10.0.5.0/24","10.0.6.0/24"]
 ecr_repository_name = "lesson-8-9-ecr"
 eks_cluster_name    = "lesson-8-9-eks"
 
+# Cost-saving: scale node group to 0 when idle
+eks_node_desired_size = 0
+eks_node_min_size     = 0
+eks_node_max_size     = 0
+
 tf_lock_table_name   = "terraform-locks"
 tf_state_bucket_name = "vadimka180880-lesson89-tfstate-usw2"
 
