@@ -8,6 +8,14 @@ controller:
     - git
     - configuration-as-code
   persistence:
-    enabled: false
+    enabled: true
+    storageClass: gp2
+    size: 10Gi
+  ingress:
+    enabled: true
+    apiVersion: networking.k8s.io/v1
+    annotations:
+      kubernetes.io/ingress.class: nginx
+    hostName: jenkins.example.com
 agent:
   enabled: true

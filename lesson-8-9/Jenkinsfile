@@ -1,4 +1,16 @@
 pipeline {
+  parameters {
+    string(name: 'AWS_REGION', defaultValue: 'us-west-2', description: 'AWS region')
+    string(name: 'ECR_REGISTRY', defaultValue: '804219314385.dkr.ecr.us-west-2.amazonaws.com', description: 'ECR registry')
+    string(name: 'IMAGE_NAME', defaultValue: 'lesson-8-9-ecr', description: 'ECR repository name')
+    string(name: 'GITOPS_REPO', defaultValue: 'https://github.com/Vadimka180880/my-microservice-project.git', description: 'GitOps repo URL')
+    string(name: 'GITOPS_BRANCH', defaultValue: 'lesson-8-9', description: 'GitOps branch')
+    string(name: 'VALUES_PATH', defaultValue: 'lesson-7/charts/django-app/values.yaml', description: 'Path to Helm values')
+    string(name: 'DOCKER_CONTEXT', defaultValue: 'docker-django', description: 'Docker build context')
+    string(name: 'DOCKERFILE', defaultValue: 'docker-django/Dockerfile', description: 'Dockerfile path')
+    string(name: 'GIT_USER_NAME', defaultValue: 'ci', description: 'Git user name for commits')
+    string(name: 'GIT_USER_EMAIL', defaultValue: 'ci@example.com', description: 'Git user email for commits')
+  }
   agent {
     kubernetes {
       yaml '''
@@ -37,16 +49,18 @@ spec:
   } 
     
   environment {
-    AWS_REGION = "us-west-2"
-    ECR_REGISTRY = "804219314385.dkr.ecr.us-west-2.amazonaws.com"
-    IMAGE_NAME = "lesson-8-9-ecr"
-    GITOPS_REPO = "https://github.com/Vadimka180880/my-microservice-project.git"
-    VALUES_PATH = "lesson-7/charts/django-app/values.yaml"
-    DOCKER_CONTEXT = "docker-django"
-    DOCKERFILE = "docker-django/Dockerfile"
+    AWS_REGION = "${params.AWS_REGION}"
+    ECR_REGISTRY = "${params.ECR_REGISTRY}"
+    IMAGE_NAME = "${params.IMAGE_NAME}"
+    GITOPS_REPO = "${params.GITOPS_REPO}"
+    VALUES_PATH = "${params.VALUES_PATH}"
+    DOCKER_CONTEXT = "${params.DOCKER_CONTEXT}"
+    DOCKERFILE = "${params.DOCKERFILE}"
+    GIT_USER_NAME = "${params.GIT_USER_NAME}"
+    GIT_USER_EMAIL = "${params.GIT_USER_EMAIL}"
     GIT_CRED_ID = "git-cred"
     AWS_CRED_ID = "aws-cred"
-    GITOPS_BRANCH = "lesson-8-9"
+    GITOPS_BRANCH = "${params.GITOPS_BRANCH}"
   }
 
   stages {
@@ -84,9 +98,9 @@ EOF
         ]) {
           container('git') {
             sh '''
-              git config --global user.email "ci@example.com"
-              git config --global user.name "ci"
-              git clone --branch $GITOPS_BRANCH https://$GIT_USERNAME:$GIT_PASSWORD@github.com/Vadimka180880/my-microservice-project.git gitops
+              git config --global user.email "$GIT_USER_EMAIL"
+              git config --global user.name "$GIT_USER_NAME"
+              git clone --branch $GITOPS_BRANCH https://$GIT_USERNAME:$GIT_PASSWORD@${GITOPS_REPO#https://} gitops
               cd gitops
               sed -i "s/tag: .*/tag: $BUILD_NUMBER/" $VALUES_PATH
               git add $VALUES_PATH
