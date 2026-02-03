@@ -46,18 +46,33 @@ module "rds" {
 ```
 
 ## Змінні
-- `use_aurora` — true для Aurora, false для RDS instance
-- `engine` — postgres/mysql/aurora-postgresql/aurora-mysql
-- `engine_version` — версія engine
-- `instance_class` — клас інстансу
-- `multi_az` — Multi-AZ для RDS
-- `allocated_storage`, `storage_type` — тільки для RDS
-- `vpc_id`, `subnet_ids` — мережа для DB Subnet Group
-- `allowed_cidr_blocks` — дозволені CIDR для доступу
-- `parameter_group_family`, `aurora_parameter_group_family`
-- `backup_retention_period`, `skip_final_snapshot`, `deletion_protection`
-- `publicly_accessible`
-- `aurora_instance_count`
+
+| Змінна | Опис | Default |
+|---|---|---|
+| `name_prefix` | Префікс назв ресурсів | `app` |
+| `use_aurora` | Створювати Aurora (true) або RDS (false) | `false` |
+| `engine` | Engine: postgres/mysql/aurora-postgresql/aurora-mysql | `postgres` |
+| `engine_version` | Версія engine | `15.5` |
+| `instance_class` | Клас інстансу | `db.t3.micro` |
+| `multi_az` | Multi-AZ для RDS | `false` |
+| `allocated_storage` | Розмір диску для RDS (GB) | `20` |
+| `storage_type` | Тип диску для RDS | `gp3` |
+| `db_name` | Початкова DB | `appdb` |
+| `username` | Master username | `appuser` |
+| `password` | Master password | _required_ |
+| `port` | Порт (0 = default by engine) | `0` |
+| `vpc_id` | VPC ID | _required_ |
+| `subnet_ids` | Subnet IDs для subnet group | _required_ |
+| `allowed_cidr_blocks` | Дозволені CIDR | `["0.0.0.0/0"]` |
+| `parameter_group_family` | Family для RDS parameter group | `postgres15` |
+| `aurora_parameter_group_family` | Family для Aurora parameter group | `aurora-postgresql15` |
+| `backup_retention_period` | Retention (days) | `7` |
+| `skip_final_snapshot` | Пропустити фінальний snapshot | `true` |
+| `deletion_protection` | Захист від видалення | `false` |
+| `publicly_accessible` | Публічний доступ | `false` |
+| `aurora_instance_count` | К-сть інстансів Aurora | `1` |
+| `apply_immediately` | Apply immediately | `true` |
+| `tags` | Теги | `{}` |
 
 ## Як змінити тип БД
 - Для Aurora: `use_aurora = true` та `engine = "aurora-postgresql"` або `"aurora-mysql"`.
