@@ -58,10 +58,10 @@ module "rds" {
 | `allocated_storage` | Розмір диску для RDS (GB) | `20` |
 | `storage_type` | Тип диску для RDS | `gp3` |
 | `db_name` | Початкова DB | `appdb` |
-| `username` | Master username | `appuser` |
+| `username` | Master username | `appuser` | 
 | `password` | Master password | _required_ |
-| `port` | Порт (0 = default by engine) | `0` |
-| `vpc_id` | VPC ID | _required_ |
+| `port` | Порт (0 = default by engine) | `0` |  
+| `vpc_id` | VPC ID | _required_ | 
 | `subnet_ids` | Subnet IDs для subnet group | _required_ |
 | `allowed_cidr_blocks` | Дозволені CIDR | `["0.0.0.0/0"]` |
 | `parameter_group_family` | Family для RDS parameter group | `postgres15` |

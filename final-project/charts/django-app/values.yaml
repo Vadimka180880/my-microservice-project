@@ -1,0 +1,47 @@
+image:
+  repository: 804219314385.dkr.ecr.us-west-2.amazonaws.com/final-project-ecr
+  tag: latest
+  pullPolicy: IfNotPresent
+
+replicaCount: 2
+
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 8000
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 6
+  targetCPUUtilizationPercentage: 70
+
+configMap:
+  data:
+    DJANGO_DEBUG: "False"
+    DJANGO_ALLOWED_HOSTS: "*"
+    DB_HOST: "postgres"
+    DB_PORT: "5432"
+
+secret:
+  data:
+    POSTGRES_DB: "django_db"
+    POSTGRES_USER: "django_user"
+    POSTGRES_PASSWORD: "django_pass"
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+ingress:
+  enabled: false
+  className: nginx
+  host: yourdomain.com
+  path: /
+  pathType: Prefix
+  tls: true
+  issuer: letsencrypt-prod

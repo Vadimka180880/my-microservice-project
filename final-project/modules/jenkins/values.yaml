@@ -1,0 +1,17 @@
+controller:
+  image:
+    tag: "2.479.1-lts-jdk17"
+  serviceType: ClusterIP
+  installPlugins:
+    - kubernetes
+    - workflow-aggregator
+    - git
+    - configuration-as-code
+  persistence:
+    enabled: true
+    storageClass: gp2
+    size: 10Gi
+  ingress:
+    enabled: false
+agent:
+  enabled: true
